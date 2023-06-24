@@ -91,26 +91,6 @@ export const Dashboard = () => {
                         </div>
                         <p>{userData.bio}</p>
                     </section>
-                   {/* <section className="flex flex-row w-[80vw] justify-around items-center py-8 border-solid border-b-4">
-                        <span className="flex items-center space-x-3">
-                            <h4 className="text-xl font-bold">Languages</h4>
-                            <p className="text-xl">REPOSITORIES</p>
-                        </span>
-                        <span className="flex items-center space-x-3">
-                            <h4 className="text-xl font-bold">Commits per quarter</h4>
-                            <p className="text-xl">REPOSITORIES</p> 
-                        </span>
-                   </section>
-                   <section  className="flex flex-row w-[80vw] justify-around items-center py-8 border-solid border-b-4">
-                        <span className="flex items-center space-x-3">
-                            <h4 className="text-xl font-bold">Repos per Languages</h4>
-                             <p className="text-xl">REPOSITORIES</p>
-                        </span>
-                        <span className="flex items-center space-x-3">
-                            <h4 className="text-xl font-bold">Most Starred</h4>
-                            <p className="text-xl">REPOSITORIES</p> 
-                        </span>
-                   </section> */}
                    <section  className="w-[80vw] justify-around items-center pt-8 border-solid">
                         <span className="flex flex-row justify-between px-6">
                             <h4 className="text-xl font-bold">{showAllRepos ? "All Repos":"Top Repops"}</h4>
