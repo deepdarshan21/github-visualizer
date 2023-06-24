@@ -10,13 +10,3 @@ export const Layout = (props) => (
         </div>
     </div>
 );
-
-Layout.propTypes = {
-    displayNav: PropTypes.bool.isRequired,
-    displayFooter: PropTypes.string.isRequired,
-};
-
-Layout.defaultProps = {
-    displayNav: true,
-    displayFooter: true,
-};
