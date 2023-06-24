@@ -8,10 +8,10 @@ import { NumberWithText } from "../components/NumberWithText";
 import { Repos } from "../components/Repos";
 
 import {fetchUserInfo, fetchUserRepos, fetchUserTopRepos} from "../utils/fetchData";
+import {convertDateToDDMonthYYYY} from "../utils/commonUtil";
 
 export const Dashboard = () => {
     const router = useRouter();
-    const options = { day: '2-digit', month: 'long', year: 'numeric' };
 
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({});
@@ -81,7 +81,7 @@ export const Dashboard = () => {
                         <a href={userData.html_url} className="text-xl font-bold text-10 text-blue-300">@{userData.login}</a>
                         <div className="flex space-x-10">
                             <IconWithText icon="location" text={userData.location} />
-                            <IconWithText icon="calendar" text={`Joined since ${new Date(userData.created_at).toLocaleDateString('en-US', options)}`} />
+                            <IconWithText icon="calendar" text={`Joined since ${convertDateToDDMonthYYYY(userData.created_at)}`} />
                         </div>
                         <div className="flex space-x-10">
                             <NumberWithText val={userData.public_repos} text={"REPOSITORIES"}/>
