@@ -121,6 +121,7 @@ export const Dashboard = () => {
                                 {showAllRepos ? "View Less":"View All"}
                             </p>
                         </span>
+                        {reposLoader ? <h1>Loading...</h1>:
                         <div className="flex flex-wrap gap-4 justify-around">
                             {repos.map((repo) => (
                                 <Repos key={repo.id} repo={repo} />
@@ -138,7 +139,7 @@ export const Dashboard = () => {
                                     >Next</button>
                                 </div>
                             )}
-                        </div>
+                        </div>}
                     </section>
                 </main>
                 </>
