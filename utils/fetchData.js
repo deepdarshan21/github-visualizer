@@ -12,8 +12,8 @@ export const fetchUserInfo = async(username) => {
     return response.data;
 }
 
-export const fetchUserRepos = async(username) => {
-  	const response = await Axios.get(`https://api.github.com/users/${username}/repos`, config);
+export const fetchUserRepos = async(username, page) => {
+  	const response = await Axios.get(`https://api.github.com/users/${username}/repos?page=${page}&per_page=12`, config);
   	return response.data;
 }
 

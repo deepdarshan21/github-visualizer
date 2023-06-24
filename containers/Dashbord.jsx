@@ -18,6 +18,7 @@ export const Dashboard = () => {
     const [repos, setRepos] = useState([]);
     const [showAllRepos, setShowAllRepos] = useState(false);
     const [reposLoader, setReposLoader] = useState(false);
+    const [allRepoPageNo, setAllRepoPageNo] = useState(1);
 
     useEffect(() => {
         if(!router.isReady) return;
@@ -25,7 +26,7 @@ export const Dashboard = () => {
         fetchUserInfo(username).then((data) => {
             setUserData(data);
         });
-        fetchUserTopRepos(userData.login).then((data) => {
+        fetchUserTopRepos(username).then((data) => {
             setRepos(data);
         });
         setLoading(false);
@@ -34,7 +35,7 @@ export const Dashboard = () => {
     useEffect(() => {
         setReposLoader(true);
         if(showAllRepos){
-            fetchUserRepos(userData.login).then((data) => {
+            fetchUserRepos(userData.login, allRepoPageNo).then((data) => {
                 setRepos(data);
             });
         }else{
@@ -43,7 +44,7 @@ export const Dashboard = () => {
             });
         }
         setReposLoader(false);
-    }, [showAllRepos]);
+    }, [showAllRepos, allRepoPageNo]);
 
     return (
         <div className="w-full h-max absolute top-0 bg-[#F3F2EF]">
@@ -124,6 +125,19 @@ export const Dashboard = () => {
                             {repos.map((repo) => (
                                 <Repos key={repo.id} repo={repo} />
                             ))}
+                            {showAllRepos && (
+                                <div className="px-8 flex flex-row justify-between items-center w-full">
+                                    <button
+                                        className="underline text-blue-500 font-bold py-2 px-4 rounded"
+                                        onClick={() => {setAllRepoPageNo(allRepoPageNo+1)}}
+                                        disabled={allRepoPageNo === 1}
+                                    >Previous</button>
+                                    <button
+                                        className="underline text-blue-500 font-bold py-2 px-4 rounded"
+                                        onClick={() => {setAllRepoPageNo(allRepoPageNo+1)}}
+                                    >Next</button>
+                                </div>
+                            )}
                         </div>
                     </section>
                 </main>
