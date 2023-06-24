@@ -16,20 +16,34 @@ export const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({});
     const [repos, setRepos] = useState([]);
-    const [topRepos, setTopRepos] = useState([]);
+    const [showAllRepos, setShowAllRepos] = useState(false);
+    const [reposLoader, setReposLoader] = useState(false);
 
     useEffect(() => {
         if(!router.isReady) return;
-        console.log(process.env.NEXT_PUBLIC_GITHUB_TOKEN);
         const username = router.query.username;
         fetchUserInfo(username).then((data) => {
             setUserData(data);
         });
-        fetchUserTopRepos(username).then((data) => {
-            setTopRepos(data);
+        fetchUserTopRepos(userData.login).then((data) => {
+            setRepos(data);
         });
         setLoading(false);
     }, [router]);
+
+    useEffect(() => {
+        setReposLoader(true);
+        if(showAllRepos){
+            fetchUserRepos(userData.login).then((data) => {
+                setRepos(data);
+            });
+        }else{
+            fetchUserTopRepos(userData.login).then((data) => {
+                setRepos(data);
+            });
+        }
+        setReposLoader(false);
+    }, [showAllRepos]);
 
     return (
         <div className="w-full h-max absolute top-0 bg-[#F3F2EF]">
@@ -98,11 +112,16 @@ export const Dashboard = () => {
                    </section> */}
                    <section  className="w-[80vw] justify-around items-center pt-8 border-solid">
                         <span className="flex flex-row justify-between px-6">
-                            <h4 className="text-xl font-bold">Top Repops</h4>
-                            <a href="#" className="text-blue-500 underline">View All</a>
+                            <h4 className="text-xl font-bold">{showAllRepos ? "All Repos":"Top Repops"}</h4>
+                            <p 
+                                className="text-blue-500 underline cursor-pointer" 
+                                onClick={() => {setShowAllRepos(!showAllRepos)}}
+                            >
+                                {showAllRepos ? "View Less":"View All"}
+                            </p>
                         </span>
                         <div className="flex flex-wrap gap-4 justify-around">
-                            {topRepos.map((repo) => (
+                            {repos.map((repo) => (
                                 <Repos key={repo.id} repo={repo} />
                             ))}
                         </div>
